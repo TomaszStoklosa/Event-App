@@ -25,7 +25,7 @@ describe('Test endpointu GET /events', () => {
     expect(response.status).toBe(200); 
     expect(response.body).toEqual(expect.arrayContaining([
       expect.objectContaining({
-        id: expect.any(Number),
+        id: expect.any(String),
         title: expect.any(String),
         date: expect.any(String),
         description: expect.any(String),

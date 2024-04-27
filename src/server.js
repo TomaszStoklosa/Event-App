@@ -44,7 +44,6 @@ app.get('/events', (req, res) => {
 app.get('/event/:eventId', (req, res) => {
     const eventId = req.params.eventId;
     const event = events.find(event => event.id === eventId);
-    console.log(event);
     if (event) {
         res.json(event);
     } else {

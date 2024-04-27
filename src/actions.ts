@@ -40,7 +40,6 @@ export const fetchEvents = (): ThunkAction<void, RootState, unknown, AnyAction> 
 export const fetchEvent = (eventId: string) => {
     return async (dispatch: Dispatch<Action>) => {
       try {
-        console.log(eventId);
         const response = await fetch(`http://localhost:3002/event/${eventId}`); 
         const data = await response.json();
         dispatch({ type: ActionTypes.FETCH_EVENT_SUCCESS, payload: data }); 
