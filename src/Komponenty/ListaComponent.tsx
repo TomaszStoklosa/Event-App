@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchEvents } from './actions.ts';
-import { Event } from './types.ts';
+import { fetchEvents } from '../actions.ts';
+import { Event } from '../types.ts';
 import { Button, List, ListItem, ListItemText } from '@mui/material';
 
 interface KomponentListyWydarzenProps {
@@ -27,7 +27,7 @@ const KomponentListyWydarzen: React.FC<KomponentListyWydarzenProps> = ({ events,
     };
   
     fetchData();
-  }, []);
+  }, [fetchEvents]);
 
   const handleAddEvent = () => {
     navigate('/addEvent'); 
@@ -43,7 +43,7 @@ const KomponentListyWydarzen: React.FC<KomponentListyWydarzenProps> = ({ events,
       {loading && <p>Ładowanie danych...</p>}
       {error && <p>Błąd: {error}</p>}
       {!loading && (
-        <div>
+        <div className ="container">
           {events && events.length > 0 ? (
            <List>
            {events.map(event => (
@@ -57,7 +57,7 @@ const KomponentListyWydarzen: React.FC<KomponentListyWydarzenProps> = ({ events,
           )}
         </div>
       )}
-       <Button variant="contained" color="primary" onClick={handleAddEvent}>
+       <Button className='main-button' variant="contained" color="primary" onClick={handleAddEvent}>
         Dodaj Wydarzenie
       </Button>
     </div>

@@ -1,24 +1,41 @@
-const http = require('http');
+
 const request = require('supertest');
 const app = require('./server.js');
-let server;
+const { exec } = require('child_process');
 
-beforeAll((done) => {
-  server.close(() => {
-    console.log('Serwer zatrzymany');
-    done();
-  });
-  server = http.createServer(app);
-  server.listen(3002, () => {
-    console.log('Serwer uruchomiony na porcie 3002');
-    done();
+afterAll(() => {
+  const command = 'netstat -a -n -o | findstr :3002 | findstr LISTENING | for /f "tokens=5" %a in (\'findstr :3002\') do taskkill /pid %a /f';
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Błąd podczas zatrzymywania serwera: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`Błąd standardowego wyjścia: ${stderr}`);
+      return;
+    }
+    console.log(`Serwer został zatrzymany: ${stdout}`);
   });
 });
 
-afterAll((done) => {
-  server.close(() => {
-    console.log('Serwer zatrzymany');
-    done();
+describe('Test endpointu GET /events', () => {
+  it('Powinno zwrócić listę wydarzeń', async () => {
+    const response = await request(app).get('/events');
+    
+    expect(response.status).toBe(200); 
+    expect(response.body).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        id: expect.any(Number),
+        title: expect.any(String),
+        date: expect.any(String),
+        description: expect.any(String),
+        image: expect.any(String),
+        eventType: expect.any(String),
+        phoneNumber: expect.any(String),
+        email: expect.any(String),
+        location: expect.any(String)
+      })
+    ]));
   });
 });
 

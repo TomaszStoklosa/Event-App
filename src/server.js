@@ -5,7 +5,7 @@ const PORT = 3002;
 
 let events = [
     {
-        id: 1,
+        id: '1',
         title: 'Rozpoczęcie rekrutacji do Alan Systems',
         date: '2024-04-26',
         description: 'Dostarcznie zadania rekrutacyjnego',
@@ -16,7 +16,7 @@ let events = [
         location: 'Obwiednia Południowa 22, 44-200 Rybnik'
       },
       {
-        id: 2,
+        id: '2',
         title: 'Dostarczenie rozwiązania',
         date: '2024-04-27',
         description: 'Dostarczenie zadania rekrutacyjnego',
@@ -44,7 +44,7 @@ app.get('/events', (req, res) => {
 app.get('/event/:eventId', (req, res) => {
     const eventId = req.params.eventId;
     const event = events.find(event => event.id === eventId);
-
+    console.log(event);
     if (event) {
         res.json(event);
     } else {

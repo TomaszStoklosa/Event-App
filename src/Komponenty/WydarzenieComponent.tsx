@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { fetchEvent } from './actions.ts';
-import { Event as CustomEvent } from "./types.ts";
-import { Button, Paper, Typography, Grid } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import { fetchEvent } from '../actions.ts';
+import { Event as CustomEvent } from "../types.ts";
+import { Typography, Grid } from '@mui/material';
+import withBackButton from './Layout.tsx';
 
 interface KomponentWydarzeniaProps {
   event: CustomEvent | null;
-  error: string | null; 
+  error: string | null;
   fetchEvent: (id: string) => void;
 }
 
 const KomponentWydarzenia: React.FC<KomponentWydarzeniaProps> = ({ event, error, fetchEvent }) => {
   const { id } = useParams<{ id: string }>();
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); 
+  const [loading, setLoading] = React.useState(true);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (id) {
       const fetchData = async () => {
         try {
@@ -29,16 +29,11 @@ const KomponentWydarzenia: React.FC<KomponentWydarzeniaProps> = ({ event, error,
       };
       fetchData();
     }
-  }, []); 
-
-  const handleBackEvent = () => {
-    navigate('/'); 
-  };
+  }, [fetchEvent, id]);
 
   return (
-    <Grid container justifyContent="center">
+    <Grid className='container' container justifyContent="center">
       <Grid item xs={12} md={8}>
-        <Paper elevation={3} style={{ padding: '20px' }}>
           <Typography variant="h4" gutterBottom>
             Szczegóły Wydarzenia
           </Typography>
@@ -58,26 +53,42 @@ const KomponentWydarzenia: React.FC<KomponentWydarzeniaProps> = ({ event, error,
                 Opis:
               </Typography>
               <Typography variant="body1">{event.description}</Typography>
+              <Typography variant="h6" gutterBottom>
+                Link obrazka:
+              </Typography>
+              <Typography variant="body1">{event.image}</Typography>
+              <Typography variant="h6" gutterBottom>
+                Typ wydarzenia:
+              </Typography>
+              <Typography variant="body1">{event.eventType}</Typography>
+              <Typography variant="h6" gutterBottom>
+                Numer telefonu:
+              </Typography>
+              <Typography variant="body1">{event.phoneNumber}</Typography>
+              <Typography variant="h6" gutterBottom>
+                Email:
+              </Typography>
+              <Typography variant="body1">{event.email}</Typography>
+              <Typography variant="h6" gutterBottom>
+                Lokalizacja:
+              </Typography>
+              <Typography variant="body1">{event.location}</Typography>
             </div>
           ) : (
             <Typography variant="body1">Wydarzenie nie zostało znalezione.</Typography>
           )}
-          <Button variant="contained" color="primary" onClick={handleBackEvent}>
-            Wstecz
-          </Button>
-        </Paper>
       </Grid>
     </Grid>
   );
-};  
+};
 
 const mapStateToProps = (state: any) => ({
-  event: state.event, 
-  error: state.error 
+  event: state.event,
+  error: state.error
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   fetchEvent: (id: string) => dispatch(fetchEvent(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(KomponentWydarzenia);
+export default withBackButton(connect(mapStateToProps, mapDispatchToProps)(KomponentWydarzenia));

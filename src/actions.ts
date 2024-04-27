@@ -25,7 +25,7 @@ export enum ActionTypes {
 export const fetchEvents = (): ThunkAction<void, RootState, unknown, AnyAction> => {
     return async (dispatch: Dispatch<Action>) => {
       try {
-        const response = await fetch('http://localhost:3001/events');
+        const response = await fetch('http://localhost:3002/events');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -40,7 +40,8 @@ export const fetchEvents = (): ThunkAction<void, RootState, unknown, AnyAction> 
 export const fetchEvent = (eventId: string) => {
     return async (dispatch: Dispatch<Action>) => {
       try {
-        const response = await fetch(`http://localhost:3001/event/${eventId}`); 
+        console.log(eventId);
+        const response = await fetch(`http://localhost:3002/event/${eventId}`); 
         const data = await response.json();
         dispatch({ type: ActionTypes.FETCH_EVENT_SUCCESS, payload: data }); 
       } catch (error) {
@@ -52,7 +53,7 @@ export const fetchEvent = (eventId: string) => {
   export const addEvent = (eventData) => {
     return async (dispatch) => {
       try {
-        const response = await fetch('http://localhost:3001/events', {
+        await fetch('http://localhost:3002/events', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json' 
