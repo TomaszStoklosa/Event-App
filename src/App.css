@@ -1,38 +1,117 @@
-.App {
-  text-align: center;
+
+/* Resetowanie domyślnych styli */
+body, html, div, p, ul, ol, li, form, label, input, button, select, textarea {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Ustawienie czcionki i koloru tekstu */
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #333; /* Kolor tekstu */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Stylizacja nagłówków */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  color: #555; /* Kolor nagłówków */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Stylizacja linków */
+a {
+  color: #007bff; /* Kolor linków */
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+a:hover {
+  text-decoration: underline;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Stylizacja formularzy */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="password"],
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Stylizacja przycisków */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff; /* Kolor tła przycisków */
+  color: #fff; /* Kolor tekstu na przyciskach */
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3; /* Kolor tła przycisków po najechaniu */
+}
+
+/* Stylizacja listy */
+ul, ol {
+  list-style: none;
+}
+
+/* Stylizacja elementów listy */
+li {
+  margin-bottom: 5px;
+}
+
+/* Stylizacja obszaru treści */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Dodatkowe style dla Material UI */
+.MuiFormControl-root {
+  margin: 6px 0;
+}
+
+/* Dodatkowe style dla Material UI Button */
+.MuiButton-root {
+  margin: 10px;
+}
+
+.form-container {
+  max-width: 400px !important;
+  padding: 20px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 8px !important;
+  background-color: #f9f9f9 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.form-title {
+  text-align: center !important;
+  margin-bottom: 20px !important;
+}
+
+.form-input {
+  width: 90% !important;
+  margin-top: 10px !important;
+  margin-bottom: 16px !important;
+}
+
+.form-button {
+  margin-top: 20px !important;
+  width: 100%!important;
+  display: flex!important;
+  justify-content: space-between !important;
 }

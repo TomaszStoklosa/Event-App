@@ -1,24 +1,19 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ListaComponent from './listaComponent.tsx';
+import KomponentWydarzenia from './WydarzenieComponent.tsx';
 import './App.css';
+import FormComponent from './formComponent.tsx';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<ListaComponent/>} />
+        <Route path="/event/:id" element={<KomponentWydarzenia/>} />
+        <Route path="/addEvent" element={<FormComponent/>} />
+      </Routes>
+    </Router>
   );
 }
 
